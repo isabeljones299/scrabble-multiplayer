@@ -11,16 +11,33 @@ import ScrabbleBoard from './components/ScrabbleBoard.jsx'
 import styled from "styled-components"
 import io from "socket.io-client"
 import socketService from "./services/socketService/index.ts"
+import { JoinRoom } from './components/joinRoom/index.tsx';
 
 
 const MainContainer = styled.div``
 const AppContainer = styled.div``
 
 function App() {
-  const connectSocket = () => {
-    const socket = io("http://localhost:9000")
-  };
+  // const connectSocket = () => {
+  //   const socket = io("http://localhost:9000")
 
+  //   socket.on("connect", () => {
+  //     socket.emit("custom_event", { name: "Izzie", age: 22 })
+  //   })
+  // };
+
+  // useEffect(() => {
+  //   connectSocket();
+  // }, [])
+
+
+  const connectSocket = async () => {
+    const socket = socketService.connect("http://localhost:9000")
+      .catch((err) => {
+        console.log("error: ", err)
+
+      })
+  }
   useEffect(() => {
     connectSocket();
   }, [])
@@ -28,7 +45,7 @@ function App() {
   return (
     <AppContainer>
       <MainContainer>
-        <p>word</p>
+        <JoinRoom />
         <div className="App">
 
           <Router>
