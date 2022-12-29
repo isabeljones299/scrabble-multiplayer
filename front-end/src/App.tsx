@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route, Routes,
-  Link
 } from "react-router-dom";
 import ScrabbleBoard from './components/ScrabbleBoard'
 
@@ -14,6 +13,7 @@ import socketService from "./services/socketService/index"
 import { JoinRoom } from './components/joinRoom/index';
 
 import GameContext, { IGameContextProps } from './gameContext';
+import gameContext from './gameContext';
 
 
 // const MainContainer = styled.div``
@@ -22,53 +22,55 @@ import GameContext, { IGameContextProps } from './gameContext';
 function App() {
 
   const [isInRoom, setInRoom] = useState(false)
-
-  // const connectSocket = () => {
-  //   const socket = io("http://localhost:9000")
-
-  //   socket.on("connect", () => {
-  //     socket.emit("custom_event", { name: "Izzie", age: 22 })
-  //   })
-  // };
-
-  // useEffect(() => {
-  //   connectSocket();
-  // }, [])
+  const [isPlayerTurn, setPlayerTurn] = useState(false);
+  const [isGameStarted, setGameStarted] = useState(false);
+  const [playerSymbol, setPlayerSymbol] = useState<"x" | "o">("x");
 
 
-  const ConnectSocket = async () => {
+  const connectSocket = async () => {
     const socket = socketService.connect("http://localhost:9000")
       .catch((err) => {
         console.log("error: ", err)
-
       })
+  }
 
-    useEffect(() => {
-      ConnectSocket();
-    }, []);
+  useEffect(() => {
+    connectSocket();
+  }, []);
 
-    const gameContextValue: IGameContextProps = {
-      isInRoom, setInRoom
-    }
+
+
+  const gameContextValue: IGameContextProps = {
+    isInRoom,
+    setInRoom,
+    isPlayerTurn,
+    setPlayerTurn,
+    isGameStarted,
+    setGameStarted,
+    playerSymbol,
+    setPlayerSymbol,
   }
   const MainContainer = styled.div``
   const AppContainer = styled.div``
 
   return (
+    <GameContext.Provider value={gameContextValue}>
+      <AppContainer>
+        <MainContainer>
+          < div className="App" >
+            {!isInRoom && <JoinRoom />}
+            {isInRoom && <ScrabbleBoard />}
 
-    <AppContainer>
-      <MainContainer>
-        <JoinRoom />
-        < div className="App" >
-
-          <Router>
-            <Routes>
-              <Route path='/' element={< ScrabbleBoard />} />
-            </Routes>
-          </Router>
-        </div>
-      </MainContainer>
-    </AppContainer>
+            <Router>
+              <Routes>
+                {/* <Route path='/' element={isInRoom ? < ScrabbleBoard /> : < JoinRoom />} />
+                <Route path='/scrabbleboard' element={< ScrabbleBoard />} /> */}
+              </Routes>
+            </Router>
+          </div>
+        </MainContainer>
+      </AppContainer>
+    </GameContext.Provider>
 
   );
 }

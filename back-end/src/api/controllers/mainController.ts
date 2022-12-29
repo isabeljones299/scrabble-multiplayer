@@ -14,8 +14,5 @@ export class MainController {
         socket.on("custom_event", (data: any) => {
             console.log("Data: ", data);
         })
-
     }
-
-
 }
