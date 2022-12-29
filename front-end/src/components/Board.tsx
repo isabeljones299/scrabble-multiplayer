@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import Square from "./Square.jsx"
+import Square from "./Square"
 
 const BuildBoardGrid = () => {
     let [score, setScore] = useState(0)
-    let tilesCopyNew = []
+    // let tilesCopyNew: object[] = [];
+    let tilesCopyNew: { [key: string]: string }[] = [];
     const row = [1, 2, 3]
     const col = [1, 2, 3]
+
+
+
 
 
     let tileArray = [row.map(row => (
@@ -15,11 +19,13 @@ const BuildBoardGrid = () => {
 
     for (let arrayRow = 0; arrayRow < tileArray[0].length; arrayRow++) {
 
-        tilesCopyNew = tilesCopyNew.concat(tileArray[0][arrayRow])
+        tilesCopyNew = tilesCopyNew.concat(tileArray[0][arrayRow] as [])
     }
     for (let item = 0; item < tilesCopyNew.length; item++) {
-        tilesCopyNew[item] = { key: tilesCopyNew[item], value: "" }
+        tilesCopyNew[item] = { key: tilesCopyNew[item].key, value: "" }
     }
+
+
 
     //let tileArray = Array(225).fill(''); //put tile array in useState below
     // const [tiles, setTiles] = useState([{ 1_1: "a" }, { 1_2: "b" }]);
@@ -33,7 +39,7 @@ const BuildBoardGrid = () => {
 
         const { id, value } = e.target;
         for (let i = 0; i < (tilesCopy || 0).length; i++) {
-            (tilesCopy[i].key === id) && (tilesCopy[i].value = value);
+            (tilesCopy[i].key as string === id) && (tilesCopy[i].value = value);
             console.log()
         }
         setTiles(tilesCopy)
@@ -68,7 +74,7 @@ const BuildBoardGrid = () => {
                 <p>Your score is..{score} </p>
                 {row.map(row => (
                     col.map(col => (
-                        <Square key={[row, col]} row={row} col={col} addTile={addTile} />
+                        <Square key={row + "_" + col as React.Key} row={row} col={col} addTile={addTile} />
                     ))))}
 
             </div>

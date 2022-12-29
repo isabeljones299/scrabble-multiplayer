@@ -13,7 +13,7 @@ const Square = ({ row, col, addTile }) => {
                 <input
                     className="tile0"
                     id={id}
-                    maxLength="1"
+                    maxLength={1}
                     onChange={(event) => addTile(event)}
                 />
             </div>
