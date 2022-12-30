@@ -36,7 +36,6 @@ const ScrabbleBoard = () => {
           setPlayerTurn(true)
         } else {
           setPlayerTurn(false)
-          setGameStarted(true)
         }
       })
       console.log("game should be started now")
@@ -62,14 +61,13 @@ const ScrabbleBoard = () => {
     )
   } if ((!isGameStarted || !isPlayerTurn) && <PlayStopper />) {
     return (
-      <h1> render failed</h1>
+      <h1> game not started OR game started and not this player turn</h1>
     )
-
   }
   else {
     return (
       <>
-        <h2> hello</h2>
+        <h2> play started </h2>
         <BuildBoardGrid />
       </>
 
