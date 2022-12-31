@@ -6,17 +6,20 @@ const Square = ({ row, col, addTile }) => {
     const id = row + "" + col
     const colourDefinedByOddOrEven = () => {
         if ((row + col) % 2 === 0) {
-            return "even";
+            console.log("evensqr")
+            return "evensqr"
         }
-        return "odd"
+        return "oddsqr"
     }
+
+
 
     // let [score, setScore] = useState(0)
 
     return (
         <>
 
-            <p> A square id = {id}  </p>
+
             <div id={id} className="square" >
                 <input
                     className={colourDefinedByOddOrEven()}

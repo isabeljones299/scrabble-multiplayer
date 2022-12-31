@@ -2,10 +2,22 @@
     background-color: green;
 }
 
-.even {
+
+.evensqr {
     background-color: red;
+    width: 30vw;
+    height: 30vw;
+
 }
 
-.odd {
+.oddsqr {
     background-color: blue;
+    width: 30vw;
+    height: 30vw;
+}
+
+
+.square {
+    float: left;
+
 }
