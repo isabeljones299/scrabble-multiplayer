@@ -51,7 +51,8 @@ function App() {
     setPlayerSymbol,
   }
   const MainContainer = styled.div``
-  const AppContainer = styled.div``
+  const AppContainer = styled.div`
+  background-ciolor: green`
 
   return (
     <GameContext.Provider value={gameContextValue}>

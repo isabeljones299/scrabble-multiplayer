@@ -1,0 +1,11 @@
+.board {
+    background-color: green;
+}
+
+.even {
+    background-color: red;
+}
+
+.odd {
+    background-color: blue;
+}

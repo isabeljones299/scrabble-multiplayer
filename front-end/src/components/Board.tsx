@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Square from "./Square"
+import "../css/board.css"
 
 const BuildBoardGrid = () => {
     let [score, setScore] = useState(0)
@@ -64,6 +65,7 @@ const BuildBoardGrid = () => {
 
     return (
         <>
+
             <button className='inputDivDC btn btn-info' onClick={scoreWord}>
                 Submit
             </button>
@@ -72,11 +74,15 @@ const BuildBoardGrid = () => {
             </button>
             <div>
                 <p>Your score is..{score} </p>
-                {row.map(row => (
-                    col.map(col => (
-                        <Square key={row + "_" + col as React.Key} row={row} col={col} addTile={addTile} />
-                    ))))}
+                <div className='board'>
+                    {row.map(row => (
 
+                        col.map(col => (
+
+                            <Square key={row + "_" + col as React.Key} row={row} col={col} addTile={addTile} />
+                        ))))}
+
+                </div>
             </div>
 
         </>

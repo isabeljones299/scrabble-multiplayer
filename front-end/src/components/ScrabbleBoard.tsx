@@ -10,11 +10,21 @@ export interface IStartGame {
   symbol: "x" | "o";
 }
 
+
+
 const ScrabbleBoard = () => {
 
 
 
-  const PlayStopper = styled.div``
+  const PlayStopper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  cursor: default;
+`;
 
   const {
     playerSymbol,
@@ -59,14 +69,11 @@ const ScrabbleBoard = () => {
         </form>
       </>
     )
-  } if ((!isGameStarted || !isPlayerTurn) && <PlayStopper />) {
-    return (
-      <h1> game not started OR game started and not this player turn</h1>
-    )
   }
   else {
     return (
       <>
+        {(!isGameStarted || !isPlayerTurn) && <PlayStopper />}
         <h2> play started </h2>
         <BuildBoardGrid />
       </>
