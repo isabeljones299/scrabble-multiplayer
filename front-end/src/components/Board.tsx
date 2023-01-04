@@ -3,56 +3,106 @@ import Square from "./Square"
 import "../css/board.css"
 
 const BuildBoardGrid = () => {
-    let [score, setScore] = useState(0)
+    const row = [0, 1, 2]
+    const col = [0, 1, 2]
+    const aB = { a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1, t: 1, d: 2, g: 2, p: 3, b: 3, c: 3, m: 3, f: 4, h: 4, v: 4, w: 4, y: 4, k: 5, j: 8, x: 8, q: 10, z: 10 }
+    let [score, setScore] = useState(Number(0))
+    let [matrix, setMatrix] = useState(createMatrix(col, row))
     // let tilesCopyNew: object[] = [];
-    let tilesCopyNew: { [key: string]: string }[] = [];
-    const row = [1, 2, 3]
-    const col = [1, 2, 3]
+    // let arrayOfTileObjects: { [key: string]: string }[] = [];
+    type Tile = {
+        [key: string]: number;
 
-
-
-
-
-    let tileArray = [row.map(row => (
-        col.map(col => (
-            row + "" + col
-        ))))]
-
-    for (let arrayRow = 0; arrayRow < tileArray[0].length; arrayRow++) {
-
-        tilesCopyNew = tilesCopyNew.concat(tileArray[0][arrayRow] as [])
     }
-    for (let item = 0; item < tilesCopyNew.length; item++) {
-        tilesCopyNew[item] = { key: tilesCopyNew[item].key, value: "" }
+
+
+    function createMatrix(columns: number[], rows: number[]): Tile[][] {
+
+        const matrix: Tile[][] = [];
+        for (let i = 0; i < rows.length; i++) {
+            matrix[i] = [];
+            for (let j = 0; j < columns.length; j++) {
+                let tile = { [(i.toString() + j.toString())]: 0 }
+                matrix[i][j] = tile
+
+            }
+        }
+        return matrix;
     }
+
+
+
+    // let tileMatrix = [row.map(row => (
+    //     col.map(col => (
+    //         row + "" + col
+    //     ))))]
+
+    // for (let arrayRow = 0; arrayRow < tileMatrix[0].length; arrayRow++) {
+    //     console.log(tileMatrix)
+    //     arrayOfTileObjects = arrayOfTileObjects.concat(tileMatrix[0][arrayRow] as [])
+    // }
+    // for (let item = 0; item < arrayOfTileObjects.length; item++) {
+    //     arrayOfTileObjects[item] = { key: arrayOfTileObjects[item].key, value: "" }
+    // }
 
 
 
     //let tileArray = Array(225).fill(''); //put tile array in useState below
     // const [tiles, setTiles] = useState([{ 1_1: "a" }, { 1_2: "b" }]);
-    const [tiles, setTiles] = useState(tilesCopyNew)
+    const [tiles, setTiles] = useState(matrix)
     let tilesCopy = [...tiles];
 
     const addTile = (e) => {
-
-        console.log(tilesCopyNew)
-        console.log(tiles)
-
         const { id, value } = e.target;
-        for (let i = 0; i < (tilesCopy || 0).length; i++) {
-            (tilesCopy[i].key as string === id) && (tilesCopy[i].value = value);
-            console.log()
+        // function changeMatrix(columns: number[], rows: number[]): Tile[][] {
+        const matrix: Tile[][] = [];
+        for (let i = 0; i < row.length; i++) {
+            matrix[i] = [];
+            for (let j = 0; j < col.length; j++) {
+                let tile = { [(i.toString() + j.toString())]: (((i.toString() + j.toString()) === id.toString()) ? aB[value] : 0) }
+                matrix[i][j] = tile
+
+            }
         }
-        setTiles(tilesCopy)
-        console.log(tiles)
+        setMatrix(matrix)
+        setTiles(matrix)
+        console.log(matrix)
     }
+
+    // for (let i = 0; i < (matrix|| 0).length; i++) {
+    //     var col = matrix[i];
+    //     for (let j = 0; j < (col || 0).length; j++)
+    //         console.log(col[1].key)
+    //     console.log(id)
+    //     if (col[1].key === id.toString()) {
+    //         console.log("match")
+    //         let tile = { [col[1].key]: "" }
+    //     }
+    // }
+
+
+
     const scoreWord = () => {
-        console.log(tilesCopy[0].value)
-        for (let i = 0; i < (tilesCopy || 0).length; i++) {
-            const aB = { a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1, t: 1, d: 2, g: 2, p: 3, b: 3, c: 3, m: 3, f: 4, h: 4, v: 4, w: 4, y: 4, k: 5, j: 8, x: 8, q: 10, z: 10 }
-            score += (aB[tilesCopy[i].value.toLowerCase()] || 0)
-            console.log(score)
+        //  console.log(tilesCopy[0].value)
+        // for (let i = 0; i < (tilesCopy || 0).length; i++) {
+        //     const aB = { a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1, t: 1, d: 2, g: 2, p: 3, b: 3, c: 3, m: 3, f: 4, h: 4, v: 4, w: 4, y: 4, k: 5, j: 8, x: 8, q: 10, z: 10 }
+        //     matrix.filter(m => m.values)
+        //     // score += (aB[matrix[i].value.toLowerCase()] || 0)
+        //     console.log(score)
+        // }
+
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                // console.log((matrix[i][j][(i.toString() + j.toString())]))
+                console.log(score)
+                console.log(matrix[i][j][(i.toString() + j.toString())])
+                score = score + Number(matrix[i][j][(i.toString() + j.toString())]);
+
+            }
         }
+
+        console.log(score)
         setScore(score)
     }
 

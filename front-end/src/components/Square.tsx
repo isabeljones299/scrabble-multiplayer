@@ -6,7 +6,6 @@ const Square = ({ row, col, addTile }) => {
     const id = row + "" + col
     const colourDefinedByOddOrEven = () => {
         if ((row + col) % 2 === 0) {
-            console.log("evensqr")
             return "evensqr"
         }
         return "oddsqr"
